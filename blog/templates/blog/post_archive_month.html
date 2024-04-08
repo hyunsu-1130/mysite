@@ -1,7 +1,51 @@
-<h1>Post Archives for {{ month|date:"N, Y" }}</h1>
+{% extends 'base.html' %}
 
+{% load static %}
+{% block title %}Blog Archive{% endblock %}
 
-<br>
+{% block extra-style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 15px;
+    }
+
+    li a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    li a:hover {
+        text-decoration: underline;
+    }
+
+    strong {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1>Post Archives for {{ month|date:"F Y" }}</h1>
 
 <div>
   <ul>
@@ -13,4 +57,4 @@
   </ul>
 </div>
 
-
+{% endblock %}

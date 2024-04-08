@@ -1,29 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Blog Archive{% endblock %}
+
+{% block extra-style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 32px; /* 헤더의 크기를 더 크게 조정 */
+        margin-bottom: 20px;
+        border-bottom: 2px solid #333; /* 헤더에 밑줄 추가 */
+        padding-bottom: 10px; /* 밑줄 아래 여백 추가 */
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .post-list li {
+        border-bottom: 1px solid #ccc; /* 포스트 리스트 각 항목에 구분선 추가 */
+        padding-bottom: 10px; /* 각 항목 아래 여백 추가 */
+    }
+
+    .post-list li:last-child {
+        border-bottom: none; /* 마지막 항목의 구분선 제거 */
+    }
+
+    .post-list li a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .post-list li a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <h1>Post Archives for {{ year|date:"Y" }}</h1>
 
 <ul>
   {% for date in date_list %}
-  <li style="display: inline;"><a href="{% url 'blog:post_month_archive' date|date:'Y' date|date:'b' %}"> Year-{{date|date:'F'}} </a></li>
+  <li><a href="{% url 'blog:post_month_archive' date|date:'Y' date|date:'b' %}">Year {{date|date:'F'}}</a></li>
   {% endfor %}
 </ul>
-
-
-{# m : 04, F : April, M : Apr, b : apr #}
-
 
 <br>
 
 <div>
-  <ul>
+  <ul class="post-list">
       {% for post in object_list %}
-      <li>{{post.modify_dt | date:"Y-m-d"}}
-          <a href="{{post.get_absolute_url}}">{{post.title}}</a>
-      </li>
+      <li>{{post.modify_dt | date:"Y-m-d"}} - <a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
       {% endfor %}
   </ul>
 </div>
 
-
-{{date_list}}
-
-
-{{object_list}}
+{% endblock %}

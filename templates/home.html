@@ -1,1 +1,60 @@
-<h1>현수의 블로그</h1>
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}환영합니다. hs_home{% endblock %}
+
+{% block extra-style %}
+<style type="text/css">
+    .home-image {
+        background-image: url("{% static 'img/pooh.jpg' %}");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        height: 500px;
+        border-top: 10px solid #ccc;
+        border-bottom: 10px solid #ccc;
+        padding: 20px 0 0 20px;
+    }
+    .title {
+        color:black;
+        font-weight: bold;
+    }
+    .powered {
+        position: relative;
+        top: 77%;
+        color: #cc0;
+        font-style: italic;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="home-image">
+  <h2 class="title">Python Web</h2>
+</div>
+
+<div class="container">
+  <div class="row text-center mt-5">
+      <div class="col-md-6">
+          <div class="card mb-3">
+              <div class="card-body">
+                  <h3 class="card-title">Bookmark App</h3>
+                  <p class="card-text">
+                      Bookmark is a Uniform Resource Identifier (URI) that is stored for later retrieval in any of various storage formats. You can store your own bookmarks by Bookmark application. It's also possible to update or delete your bookmarks.
+                  </p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="card mb-3">
+              <div class="card-body">
+                  <h3 class="card-title">Blog App</h3>
+                  <p class="card-text">
+                      This application makes it possible to log daily events or write your own interests such as hobbies, techniques, etc. A typical blog combines text, digital images, and links to other blogs, web pages, and other media related to its topic.
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

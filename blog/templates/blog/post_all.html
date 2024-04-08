@@ -1,24 +1,57 @@
-<h1>HS BLOG POST LIST</h1>
-<br>
-{% for post in posts %}
-<h3><a href="{{ post.get_absolute_url }}">{{post.title}}</a> </h3>
-{{post.modify_dt | date:"Y년 N d일" }}
-<p>{{post.content}}</p>
-{% endfor %}
+{% extends 'base.html' %}
 
-<br>
+{% load static %}
 
-<div>
+{% block title %}Blog App{% endblock %}
+
+{% block extra-style %}
+<style>
+  h2 {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: bold;
+  }
+  .post-title {
+    font-family: 'Arial', sans-serif; /* 제목에 사용할 글꼴 설정 */
+  }
+
+  .post-content {
+    font-family: 'Arial', sans-serif; /* 본문에 사용할 글꼴 설정 */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mt-5 mb-4">HS BLOG POST LIST</h2>
+
+  <br>
+
+  {% for post in posts %}
+  <div class="card mb-4">
+      <div class="card-body">
+          <h3 class="card-title post-title"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h3>
+          <p class="card-text post-content">{{post.content}}</p>
+          <p class="card-text"><small class="text-muted">{{post.modify_dt | date:"Y년 m월 d일"}}</small></p>
+      </div>
+  </div>
+  {% endfor %}
+
+  <br>
+
+  <div class="d-flex justify-content-between mt-4">
     <span>
         {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
-        {% endif %}
-
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-light">&lt; Previous Page</a>
         {% endif %}
     </span>
 
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    <span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-light">Next Page &gt;</a>
+        {% endif %}
+    </span>
+  </div>
 </div>
+{% endblock %}

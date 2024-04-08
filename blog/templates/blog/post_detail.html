@@ -1,22 +1,65 @@
-<h2>{{ object.title }}</h2>
+{% extends 'base.html' %}
 
-<p>
-    {% if object.get_previous %}
-    <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post">
-        &laquo;-- {{ object.get_previous }}
-    </a>
-    {% endif %}
+{% load static %}
 
-    {% if object.get_next %}
-    | <a href="{{ object.get_next.get_absolute_url }}" title="View next post">
-    {{ object.get_next }} --&raquo;
-    </a>
-    {% endif %}
-</p>
+{% block title %}Blog App{% endblock %}
 
-<p>{{ object.modify_dt|date:"j F Y" }}</p>
-<br>
+{% block extra-style %}
+<style>
+    body {
+        font-family: Arial, sans-serif; /* 전체 텍스트에 적용되는 글꼴 설정 */
+        line-height: 1.6; /* 행간 설정 */
+        margin: 0; /* body의 기본 마진 제거 */
+    }
 
-<div>
-    {{ object.content|linebreaks }}
+    h2 {
+        color: #333; /* 제목 색상 */
+        font-size: 24px; /* 제목 크기 */
+        margin-bottom: 10px; /* 제목 아래 여백 추가 */
+    }
+
+    p {
+        color: #666; /* 본문 텍스트 색상 */
+        font-size: 16px; /* 본문 텍스트 크기 */
+    }
+
+    .post-nav {
+        margin-top: 20px; /* 이전 및 다음 포스트 네비게이션의 상단 여백 */
+    }
+
+    .post-nav a {
+        color: #007bff; /* 네비게이션 링크 색상 */
+        text-decoration: none; /* 네비게이션 링크에 밑줄 제거 */
+    }
+
+    .post-nav a:hover {
+        text-decoration: underline; /* 네비게이션 링크에 호버 시 밑줄 추가 */
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="post">
+    <h2>{{ object.title }}</h2>
+
+    <p>
+        {% if object.get_previous %}
+            <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post">&laquo; Previous Post</a>
+        {% endif %}
+
+        {% if object.get_next %}
+            {% if object.get_previous %}|{% endif %}
+            <a href="{{ object.get_next.get_absolute_url }}" title="View next post">Next Post &raquo;</a>
+        {% endif %}
+    </p>
+
+    <p>{{ object.modify_dt|date:"j F Y" }}</p>
+
+    <div>
+        {{ object.content|linebreaks }}
+    </div>
 </div>
+
+{% endblock %}
